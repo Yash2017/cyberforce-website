@@ -64,7 +64,7 @@ export default function Login() {
   }, []);
   async function handleClick(name: string) {
     try {
-      window.open(`http://localhost:8080/files/${name}`);
+      window.open(`http://10.0.38.79:8080/files/${name}`);
     } catch (error) {
       throw error;
     }
@@ -87,7 +87,7 @@ export default function Login() {
       } else {
         //credentials are right
         if (username === "plank") {
-          const response = await fetch("http://localhost:8080/getdata");
+          const response = await fetch("http://10.0.38.79:8080/getdata");
           const jsonResponse = await response.json();
           setData(jsonResponse);
           localStorage.setItem("type", "admin");

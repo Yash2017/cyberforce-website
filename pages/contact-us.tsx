@@ -48,7 +48,7 @@ export default function ContactUs() {
       formData.append("email", email);
       formData.append("number", number);
       formData.append("file", file!);
-      const response = await fetch("http://localhost:8080/upload", {
+      const response = await fetch("http://10.0.38.79:8080/upload", {
         method: "POST",
         // headers: {
         //   "content-type": "multipart/form-data",
