@@ -53,7 +53,7 @@ export default function Login() {
   useEffect(() => {
     const typeOfUser = localStorage.getItem("type");
     async function getEmails() {
-      const response = await fetch("http://localhost:8080/getdata");
+      const response = await fetch("http://10.0.38.79:8080/getdata");
       const jsonResponse = await response.json();
       setData(jsonResponse);
     }
