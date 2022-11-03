@@ -95,6 +95,8 @@ export default function Login() {
           setPassword("");
           setLoading(false);
         }
+
+        setLoading(false);
       }
     }
   };
