@@ -1,4 +1,12 @@
-import { Box, Button, Stack, TextField, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Button,
+  Snackbar,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React, { useState } from "react";
 import { LoadingButton } from "@mui/lab";
 
@@ -19,7 +27,8 @@ export default function ContactUs() {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [number, setNumber] = useState<string>("");
-  const handleSubmit = () => {
+  const [success, setSuccess] = useState<string>("");
+  const handleSubmit = async () => {
     if (!name) setError(InputError.name);
     else if (
       !email ||
@@ -34,7 +43,28 @@ export default function ContactUs() {
     else if (!fileName) setError(InputError.file);
     else {
       setLoading(true);
-      //sent to server
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("email", email);
+      formData.append("number", number);
+      formData.append("file", file!);
+      const response = await fetch("http://localhost:8080/upload", {
+        method: "POST",
+        // headers: {
+        //   "content-type": "multipart/form-data",
+        // },
+        body: formData,
+      });
+
+      const jsonRes = await response.json();
+      console.log(jsonRes);
+      setLoading(false);
+      setFile(null);
+      setFileName(null);
+      setName("");
+      setEmail("");
+      setNumber("");
+      setSuccess("Form Submitted Successfully!");
     }
   };
 
@@ -129,6 +159,20 @@ export default function ContactUs() {
           </LoadingButton>
         </Stack>
       </Box>
+      <Snackbar
+        open={success ? true : false}
+        autoHideDuration={6000}
+        onClose={() => setSuccess("")}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      >
+        <Alert
+          onClose={() => setSuccess("")}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          {success}
+        </Alert>
+      </Snackbar>
     </Stack>
   );
 }
