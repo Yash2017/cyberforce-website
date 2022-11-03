@@ -94,9 +94,11 @@ export default function Login() {
           setUsername("");
           setPassword("");
           setLoading(false);
+        } else {
+          setUsername("");
+          setPassword("");
+          setLoading(false);
         }
-
-        setLoading(false);
       }
     }
   };
